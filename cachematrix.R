@@ -13,9 +13,11 @@
 ## a given matrix.
 
 makeCacheMatrix <- function(x = matrix()) {
-	i <- NULL
+	i <- NULL # initialize i
+	
+	# below are the set, get, setinv, and getinv functions
 	set <- function(y) {
-		x <<- y
+		x <<- y 
 		i <<- NULL
 	}
 	get <- function() x
@@ -34,13 +36,13 @@ makeCacheMatrix <- function(x = matrix()) {
 ## cache and returns it.
 
 cacheSolve <- function(x, ...) {
-	i <- x$getinv()
-	if (!is.null(i)) {
+	i <- x$getinv() # get i from cache
+	if (!is.null(i)) { # if it was in the cache, simply return it
 		message("getting inverse from cache")
 		return(i)
 	}
-	y <- x$get()
-	i <- solve(y) # we are assuming the matrix is invertible
-	x$setinv(i)
-	return(i)
+	y <- x$get() # get x
+	i <- solve(y, ...) # we are assuming the matrix is invertible
+	x$setinv(i) # set the inverse in the cache
+	return(i) # return the inverted value
 }
